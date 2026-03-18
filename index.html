@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Code Cheat Sheet</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0d0d0d;
+    color: #c8c8c8;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 12px;
+    padding: 20px;
+    line-height: 1.5;
+  }
+  h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #ff6b6b;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+  .subtitle {
+    text-align: center;
+    color: #888;
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+  .badge {
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .badge span {
+    background: #ff6b6b;
+    color: white;
+    padding: 3px 12px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    max-width: 1200px;
+    margin: 12px auto 0;
+  }
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    max-width: 1200px;
+    margin: 12px auto 0;
+  }
+  .card {
+    background: #1a1a2e;
+    border: 1px solid #2a2a4a;
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #2a2a4a;
+  }
+  .card-header h2 {
+    font-size: 13px;
+    color: #fff;
+    font-weight: 600;
+  }
+  .icon { font-size: 16px; }
+  .section-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #556;
+    margin: 8px 0 4px;
+    font-weight: 700;
+  }
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 3px;
+    gap: 8px;
+  }
+  kbd {
+    background: #252540;
+    border: 1px solid #3a3a5a;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: #aaf;
+    white-space: nowrap;
+  }
+  code {
+    background: #252540;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-family: 'Courier New', monospace;
+    font-size: 10px;
+    color: #7af;
+    white-space: nowrap;
+  }
+  .desc { color: #999; font-size: 11px; flex: 1; text-align: right; }
+  .desc-left { color: #999; font-size: 11px; flex: 1; }
+  .key-col { min-width: 90px; }
+  hr.divider {
+    border: none;
+    border-top: 1px solid #2a2a4a;
+    margin: 8px 0;
+  }
+  .tip {
+    background: #1a2a1a;
+    border-left: 3px solid #4a4;
+    padding: 6px 8px;
+    border-radius: 0 4px 4px 0;
+    font-size: 10px;
+    color: #8b8;
+    margin-top: 8px;
+  }
+  .tip-warn {
+    background: #2a1a1a;
+    border-left: 3px solid #a44;
+    padding: 6px 8px;
+    border-radius: 0 4px 4px 0;
+    font-size: 10px;
+    color: #c88;
+    margin-top: 8px;
+  }
+  .mode-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+  }
+  .mode-card {
+    background: #252540;
+    border-radius: 5px;
+    padding: 8px;
+  }
+  .mode-card h4 {
+    color: #fff;
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+  .mode-card p {
+    font-size: 10px;
+    color: #999;
+  }
+  .cycle-bar {
+    background: #252540;
+    border-radius: 4px;
+    padding: 5px 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    font-size: 10px;
+    color: #aaa;
+    justify-content: center;
+  }
+  .cycle-bar kbd { font-size: 9px; }
+  .arrow { color: #666; }
+  .col2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .tag {
+    display: inline-block;
+    background: #252540;
+    border-radius: 3px;
+    padding: 1px 6px;
+    font-size: 10px;
+    color: #9af;
+    margin: 1px;
+  }
+  .tag-green { color: #4a4; background: #1a2a1a; }
+  .vs { color: #ff6b6b; font-weight: bold; font-size: 10px; }
+  .file-item {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 3px;
+    font-size: 11px;
+  }
+  .file-name { color: #7af; font-family: monospace; min-width: 110px; font-size: 10px; }
+  .file-desc { color: #888; }
+  .priority-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 3px;
+    font-size: 10px;
+  }
+  .priority-label {
+    color: #aaa;
+    min-width: 80px;
+  }
+  .priority-path {
+    color: #7af;
+    font-family: monospace;
+    font-size: 9px;
+  }
+  .big5-section {
+    margin-bottom: 10px;
+  }
+  .big5-label {
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #556;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .big5-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .big5-keyword {
+    background: #2a2050;
+    color: #aaf;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    min-width: 50px;
+    text-align: center;
+    font-weight: 600;
+  }
+  .big5-text { color: #999; font-size: 10px; line-height: 1.4; }
+  .hook-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 4px;
+    align-items: flex-start;
+  }
+  .hook-name {
+    color: #f90;
+    font-family: monospace;
+    font-size: 10px;
+    min-width: 130px;
+  }
+  .hook-desc { color: #999; font-size: 10px; }
+  .config-row {
+    font-size: 10px;
+    margin-bottom: 3px;
+  }
+  .config-cmd {
+    color: #7af;
+    font-family: monospace;
+    font-size: 10px;
+    margin-bottom: 2px;
+  }
+  .span-2 { grid-column: span 2; }
+  .span-3 { grid-column: span 3; }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+    .grid-4 { grid-template-columns: 1fr; }
+    .mode-grid { grid-template-columns: 1fr; }
+    .col2 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<h1>Claude Code Cheat Sheet</h1>
+<p class="subtitle">Everything you need in one place — Commands, Shortcuts, Features &amp; Tips</p>
+<div class="badge"><span>CHEAT SHEET</span></div>
+
+<!-- Row 1: 3 columns -->
+<div class="grid">
+
+  <!-- Keyboard Shortcuts -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">⌨️</span>
+      <h2>Keyboard Shortcuts</h2>
+    </div>
+    <div class="section-label">Essential</div>
+    <div class="row"><kbd>Enter</kbd><span class="desc">Send message / submit</span></div>
+    <div class="row"><kbd>Esc</kbd><span class="desc">Interrupt / stop generation</span></div>
+    <div class="row"><kbd>Opt Esc</kbd><span class="desc">Open nested menu (go back in conversation or code)</span></div>
+    <div class="row"><kbd>Ctrl+C</kbd><span class="desc">Cancel current operation (hard stop)</span></div>
+    <div class="row"><kbd>Ctrl+K</kbd><span class="desc">Edit Claude Code</span></div>
+    <div class="row"><kbd>Shift+Tab</kbd><span class="desc">Cycle modes: Normal → Auto-Accept → Plan</span></div>
+
+    <div class="section-label">Navigation</div>
+    <div class="row"><kbd>Ctrl+R</kbd><span class="desc">Search command history</span></div>
+    <div class="row"><kbd>Ctrl+L</kbd><span class="desc">Toggle task list</span></div>
+    <div class="row"><kbd>Ctrl+T</kbd><span class="desc">Toggle verbose transcript</span></div>
+    <div class="row"><kbd>Shift+Tab</kbd><span class="desc">Paste Image (screenshots, diagrams)</span></div>
+    <div class="row"><kbd>Opt+H / Opt+R</kbd><span class="desc">Open recent prompt (save for later)</span></div>
+    <div class="row"><kbd>Ctrl+/ Shift+Ctrl</kbd><span class="desc">Open-modal picker (switch models quickly)</span></div>
+    <div class="row"><kbd>Ctrl+/ Shift+Ctrl</kbd><span class="desc">Toggle extended thinking</span></div>
+
+    <div class="section-label">Editing / Read Style</div>
+    <div class="row"><kbd>Ctrl+A / Ctrl+E</kbd><span class="desc">Start / end of line</span></div>
+    <div class="row"><kbd>Opt+F / Opt+B</kbd><span class="desc">Word forward / back</span></div>
+    <div class="row"><kbd>Opt+D</kbd><span class="desc">Delete previous word</span></div>
+    <div class="row"><kbd>\ + Enter</kbd><span class="desc">New line (without sending)</span></div>
+
+    <div class="section-label">Background Tasks</div>
+    <div class="row"><kbd>Ctrl+Z</kbd><span class="desc">Send running task to background</span></div>
+
+    <div class="tip">💡 Run <code>/terminal-setup</code> to set up Shift-Alt for multi-line input. Use <code>/keyboardshortcuts</code> to see settings &amp; VS Code keys. Run <code>/keyboardshortcuts</code> to customize all shortcuts.</div>
+  </div>
+
+  <!-- Slash Commands -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">⚡</span>
+      <h2>Slash Commands</h2>
+    </div>
+    <div class="section-label">Session Control</div>
+    <div class="row"><code>/clear</code><span class="desc">Reset conversation history (fresh start)</span></div>
+    <div class="row"><code>/compact [inst]</code><span class="desc">Compress context to save tokens. Optional hint for what to keep</span></div>
+    <div class="row"><code>/reload [file]</code><span class="desc">Go back to conversation AND/OR code changes</span></div>
+    <div class="row"><code>/last</code><span class="desc">Export conversation as file (in clipboard)</span></div>
+    <div class="row"><code>/usage</code><span class="desc">Show session cost &amp; token usage</span></div>
+    <div class="row"><code>/context</code><span class="desc">Token consumption visualization</span></div>
+
+    <div class="section-label">Configuration</div>
+    <div class="row"><code>/config</code><span class="desc">Opens settings panel</span></div>
+    <div class="row"><code>/keyboardshortcuts</code><span class="desc">Switch Shortcuts / Open / Pairs / Helps</span></div>
+    <div class="row"><code>/vim</code><span class="desc">Update &amp; view permissions during file</span></div>
+    <div class="row"><code>/terminal-setup</code><span class="desc">Setup Shift-Enter for multi-line input</span></div>
+
+    <div class="section-label">Development</div>
+    <div class="row"><code>/init</code><span class="desc">Create CLAUDE.md for your project — do this first!</span></div>
+    <div class="row"><code>/memory</code><span class="desc">File &amp; edit CLAUDE.md project memory</span></div>
+    <div class="row"><code>/doctor</code><span class="desc">Environment diagnostics &amp; health check</span></div>
+    <div class="row"><code>/agents</code><span class="desc">Manage sub-agents</span></div>
+    <div class="row"><code>/mcp</code><span class="desc">Manage MCP servers</span></div>
+
+    <div class="section-label">Advanced</div>
+    <div class="row"><code>/insights</code><span class="desc">Generate HTML usage report <span style="background:#f63;color:#fff;border-radius:3px;padding:1px 4px;font-size:9px;">NEW</span></span></div>
+    <div class="row"><code>/pr_comments</code><span class="desc">View GitHub PR feedback</span></div>
+    <div class="row"><code>/install-github-app</code><span class="desc">Setup automated PR reviews</span></div>
+    <div class="row"><code>/plans</code><span class="desc">Persistent task list management</span></div>
+    <div class="row"><code>/release</code><span class="desc">Transfer session between web → local</span></div>
+  </div>
+
+  <!-- CLI Launch Flags -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🚀</span>
+      <h2>CLI Launch Flags</h2>
+    </div>
+    <div class="section-label">Starting Sessions</div>
+    <div class="row"><code>claude</code><span class="desc">Start interactive session</span></div>
+    <div class="row"><code>claude "query"</code><span class="desc">Print mode — answer &amp; exit (for scripting)</span></div>
+    <div class="row"><code>claude --continue</code><span class="desc">Continue last conversation</span></div>
+    <div class="row"><code>claude --resume "name"</code><span class="desc">Resume specific session by name or ID</span></div>
+    <div class="row"><code>claude --new-session</code><span class="desc">Start in isolated git worktree</span></div>
+
+    <div class="section-label">Model &amp; Reasoning</div>
+    <div class="row"><code>--model_smart</code><span class="desc">Use Sonnet (fast, cheap)</span></div>
+    <div class="row"><code>--model_api</code><span class="desc">Use Opus (smarter)</span></div>
+    <div class="row"><code>--agent-my-agent</code><span class="desc">Use a specific sub-agent</span></div>
+    <div class="row"><code>--permission-mode plan</code><span class="desc">Start in plan mode</span></div>
+    <div class="row"><code>--max-turns N</code><span class="desc">Limit conversation turns</span></div>
+    <div class="row"><code>--max-budget $</code><span class="desc">Set max spend limit</span></div>
+
+    <div class="section-label">Context &amp; Directories</div>
+    <div class="row"><code>--add-dir ../path</code><span class="desc">Add extra directories to context</span></div>
+    <div class="row"><code>--chrome</code><span class="desc">Enable browser integration</span></div>
+    <div class="row"><code>--verbose</code><span class="desc">Enable detailed logging</span></div>
+
+    <div class="section-label">Permissions</div>
+    <div class="row"><code>--allowedTools</code><span class="desc">Whitelist specific tools</span></div>
+    <div class="row"><code>--disallowedTools</code><span class="desc">Block specific tools</span></div>
+    <div class="row"><code>--tools "Bash,Edit,List"</code><span class="desc">Restrict to only these tools</span></div>
+
+    <div class="section-label">Output Formats (Use in More)</div>
+    <div class="row"><code>--output-format json</code><span class="desc">Structured (default)</span></div>
+    <div class="row"><code>--output-format stream-json</code><span class="desc">Real-time streaming JSON</span></div>
+    <div class="tip">💡 Pipe: <code>cat file.txt | claude -p "Follow this" | tee log.txt</code>. Use <code>claude --flag / claude "FindThis"</code> to "FindThis".<br>Let setting_flag / "FindFile"</div>
+  </div>
+</div>
+
+<!-- Row 2: 2 columns -->
+<div class="grid-2">
+
+  <!-- The Big 5 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🏆</span>
+      <h2>The Big 5 — Claude Code Extension System</h2>
+    </div>
+    <div class="col2">
+      <div>
+        <div class="big5-label">How They Work</div>
+        <div class="big5-row">
+          <span class="big5-keyword">Must</span>
+          <span class="big5-text">It remembers the Claude reads every session. Your project's "brain dump" — coding style, architecture, common commands, conventions.</span>
+        </div>
+        <div class="big5-row">
+          <span class="big5-keyword">Share</span>
+          <span class="big5-text"><code>~/.claude/CLAUDE.md</code> (all projects) or <code>./.claude/CLAUDE.md</code> (this project). Claude reads at launch.</span>
+        </div>
+        <div class="big5-row">
+          <span class="big5-keyword">Create</span>
+          <span class="big5-text">Run <code>/init</code> in your project — Claude generates it for you.</span>
+        </div>
+
+        <div class="big5-label" style="margin-top:10px">Custom Slash Commands</div>
+        <div class="big5-row">
+          <span class="big5-keyword">Must</span>
+          <span class="big5-text">Your commands. Markdown files with prompts that YOU choose. Like prompt templates.</span>
+        </div>
+        <div class="big5-row">
+          <span class="big5-keyword">Share</span>
+          <span class="big5-text"><code>~/.claude/commands/</code> (project) or <code>./.claude/commands/</code> type <code>filename: review.md → type /project/review</code></span>
+        </div>
+        <div class="big5-row">
+          <span class="big5-keyword">Use</span>
+          <span class="big5-text">Filename → command name. review.md → type <code>/project/review</code></span>
+        </div>
+      </div>
+      <div>
+        <div class="big5-label">Sub Agents — Separate Instances</div>
+        <div class="big5-row">
+          <span class="big5-keyword">Must</span>
+          <span class="big5-text">Separate Claude instances with their own context &amp; role. Like team member: reviewer, debugger, architect, etc.</span>
+        </div>
+        <div class="big5-row">
+          <span class="big5-keyword">Share</span>
+          <span class="big5-text"><code>/agents</code> to manage, or just say "Use the reviewer agent".</span>
+        </div>
+        <div class="big5-row">
+          <span class="big5-keyword">Use</span>
+          <span class="big5-text">→ agent: my-agent or --agents '/[tool]'</span>
+        </div>
+
+        <div class="big5-label" style="margin-top:10px">External Tool Connections</div>
+        <div class="big5-row">
+          <span class="big5-keyword">Must</span>
+          <span class="big5-text">Connect Claude to external apps: GitHub, Notion, databases, APIs, browsers, etc.</span>
+        </div>
+        <div class="big5-row">
+          <span class="big5-keyword">Share</span>
+          <span class="big5-text"><code>~/.claude/mcp</code> (JSON) → <code>claude --mcp</code></span>
+        </div>
+        <div class="big5-row">
+          <span class="big5-keyword">List</span>
+          <span class="big5-text"><code>claude mcp list</code></span>
+        </div>
+
+        <div class="big5-label" style="margin-top:10px">Skills — Community Extensions</div>
+        <div class="big5-row">
+          <span class="big5-keyword">Must</span>
+          <span class="big5-text">Bundles of commands, skills, hooks &amp; more from the community.</span>
+        </div>
+        <div class="big5-row">
+          <span class="big5-keyword">Browse</span>
+          <span class="big5-text"><code>/plug-in</code> to browse, install, enable, disable</span>
+        </div>
+        <div class="big5-row">
+          <span class="big5-keyword">Setup</span>
+          <span class="big5-text"><code>--plugin-dir ~/.my-plugins</code> for local plugins</span>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <div style="display:flex; gap:20px; justify-content:center; font-size:10px; color:#888; align-items:center; margin-top:4px;">
+      <span>Custom Commands = YOU invoke them <span class="vs">VS</span> Skills — CLAUDE invokes them <span class="vs">VS</span></span>
+    </div>
+    <div style="display:flex; gap:20px; justify-content:center; font-size:10px; color:#888; align-items:center; margin-top:2px;">
+      <span>Sub Agents = Separate Instances <span class="vs">VS</span> MCP = External tool connections <span class="vs">VS</span></span>
+    </div>
+  </div>
+
+  <!-- Permission Modes -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🛡️</span>
+      <h2>Permission Modes</h2>
+    </div>
+    <div class="mode-grid">
+      <div class="mode-card">
+        <h4>Normal</h4>
+        <p>Claude asks permission for every tool use. Safe but more interruptions. Good for trusted code or fast iteration.</p>
+      </div>
+      <div class="mode-card">
+        <h4>Auto-Accept</h4>
+        <p>Claude runs WITHOUT asking. Faster but less control. Good for trusted code or fast iteration.</p>
+      </div>
+      <div class="mode-card">
+        <h4>Plan Mode</h4>
+        <p>Claude ONLY reads &amp; plans. Won't write or run anything. Review first, then switch to Normal to execute.</p>
+      </div>
+    </div>
+    <div class="cycle-bar">
+      <kbd>Shift+Tab</kbd> <span class="arrow">→</span> Normal <span class="arrow">→</span> Auto-Accept <span class="arrow">→</span> Plan <span class="arrow">→</span> Normal...
+    </div>
+    <div class="tip" style="margin-top:10px">💡 <strong>Best workflow:</strong> Start in Plan Mode to explore &amp; understand the problem. Review Claude's plan. Switch to Normal/Auto-Accept to implement. This is what you already do — it's the right approach!</div>
+  </div>
+</div>
+
+<!-- Row 3: 3 columns -->
+<div class="grid">
+
+  <!-- Hooks -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🔗</span>
+      <h2>Hooks — Event Automation</h2>
+    </div>
+    <div class="hook-row"><span class="hook-name">PreToolUse</span><span class="hook-desc">Run BEFORE Claude uses a tool — validate, check, or modify</span></div>
+    <div class="hook-row"><span class="hook-name">PostToolUse</span><span class="hook-desc">Run AFTER a tool — check results, auto-format, log</span></div>
+    <div class="hook-row"><span class="hook-name">UserPromptSubmit</span><span class="hook-desc">Before your message is processed</span></div>
+    <div class="hook-row"><span class="hook-name">SessionStart</span><span class="hook-desc">When a session begins</span></div>
+    <div class="hook-row"><span class="hook-name">SessionEnd</span><span class="hook-desc">When a session ends</span></div>
+    <div class="hook-row"><span class="hook-name">PreCompact</span><span class="hook-desc">Before context compression</span></div>
+    <div class="hook-row"><span class="hook-name">Notification</span><span class="hook-desc">When Claude sends a notification</span></div>
+
+    <div class="tip">💡 <strong>Example:</strong> Auto-run prettier after every file write. Configure in your Settings.json.</div>
+  </div>
+
+  <!-- Input Superpowers -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">⚡</span>
+      <h2>Input Superpowers</h2>
+    </div>
+    <div class="section-label">@ mention</div>
+    <div class="row"><code>@filename</code><span class="desc">Type-in to reference Files &amp; Folders. Claude copy-pastes into context</span></div>
+    <div class="section-label">prefix</div>
+    <div class="row"><code># prefix</code><span class="desc">Type <code>#</code> in chat commands (Emg. <code>E.g., # git status</code>)</span></div>
+    <div class="section-label">Paste Images</div>
+    <div class="row"><span style="color:#999;font-size:11px;">Paste (screenshots, diagrams), error screenshots, or images directly</span></div>
+    <div class="section-label">Pipe Input</div>
+    <div class="row"><code>cat log.txt | claude -p "explain"</code></div>
+    <div class="row"><code>claude</code><span class="desc">feed data directly</span></div>
+    <div class="section-label">Multi-dir</div>
+    <div class="row"><code>claude --add-dir ../rel --root ---work across multiple modules</code></div>
+    <div class="section-label">Build-dir</div>
+    <div class="row"><code>claude --add-dir .,../rel ---work across multiple instances</code></div>
+    <div class="tip-warn">⚠️ The <code>@file</code> reference instead of copy-pasting file contents — it's smarter with context and uses fewer tokens.</div>
+  </div>
+
+  <!-- Configuration -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">⚙️</span>
+      <h2>Configuration</h2>
+    </div>
+    <div class="section-label">Settings Priority (Lowest → Lowest)</div>
+    <div class="priority-row"><span class="priority-label">Enterprise</span><span class="priority-path">/etc/claude-code/managed-settings.json (your company)</span></div>
+    <div class="priority-row"><span class="priority-label">Project Level</span><span class="priority-path">~/.claude/settings.json (committed to git, shared with team)</span></div>
+    <div class="priority-row"><span class="priority-label">User (Local)</span><span class="priority-path">~/.claude/settings.local.json (your defaults)</span></div>
+    <hr class="divider">
+    <div class="config-cmd">config get key — show all settings</div>
+    <div class="config-cmd">config get key — show a value</div>
+    <div class="config-cmd">config set key value — change a value</div>
+    <div class="config-cmd">config add key value — add to array</div>
+    <hr class="divider">
+    <div class="tip-warn">⚠️ <strong>Permissions example:</strong> Allow git commands without asking: add <code>"Bash(git:*)"</code> to your allowedTools list</div>
+  </div>
+</div>
+
+<!-- Row 4: 4 columns -->
+<div class="grid-4">
+
+  <!-- File Structure Map -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">📁</span>
+      <h2>File Structure Map</h2>
+    </div>
+    <div class="section-label">Project Level (5 Files)</div>
+    <div class="file-item"><span class="file-name">CLAUDE.md</span><span class="file-desc">Project memory — conventions, architecture, commands</span></div>
+    <div class="file-item"><span class="file-name">settings.json</span><span class="file-desc">Shared project settings (committed to git)</span></div>
+    <div class="file-item"><span class="file-name">settings.local</span><span class="file-desc">Your personal settings (gitignored)</span></div>
+    <div class="file-item"><span class="file-name">commands/</span><span class="file-desc">Project slash commands (*.md files)</span></div>
+    <div class="file-item"><span class="file-name">agents/</span><span class="file-desc">Project sub-agents (*.md files)</span></div>
+    <div class="section-label" style="margin-top:8px">Global Level (3 Files)</div>
+    <div class="file-item"><span class="file-name">CLAUDE.md</span><span class="file-desc">Global memory (applies to ALL projects)</span></div>
+    <div class="file-item"><span class="file-name">commands/</span><span class="file-desc">Global commands</span></div>
+    <div class="file-item"><span class="file-name">agents/</span><span class="file-desc">Personal global agents</span></div>
+    <div class="file-item"><span class="file-name">keybindings.json</span><span class="file-desc">Custom keyboard shortcuts</span></div>
+  </div>
+
+  <!-- Rewind & Checkpoints -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">⏪</span>
+      <h2>Rewind &amp; Checkpoints</h2>
+    </div>
+    <div class="row"><kbd>Esc Esc</kbd><span class="desc">Open rewind menu anywhere</span></div>
+    <div class="row"><code>/rewind</code><span class="desc">Same but typed as command</span></div>
+    <hr class="divider">
+    <div class="section-label">Rewind Options</div>
+    <div class="file-item"><span class="file-name" style="min-width:90px">Conversation</span><span class="file-desc">Go back in chat only. Code stays as-is.</span></div>
+    <div class="file-item"><span class="file-name" style="min-width:90px">Code</span><span class="file-desc">Restore files only. Conversation stays.</span></div>
+    <div class="file-item"><span class="file-name" style="min-width:90px">Full Rewind</span><span class="file-desc">Restores both conversation AND code to a previous state.</span></div>
+    <div class="tip-warn" style="margin-top:8px">⚠️ Code rewind affects Workspace changes. API calls, deleted files may not be rewound. Checkpoints only track file edits (no Rename. Use git for permanent safety).</div>
+  </div>
+
+  <!-- Pro Workflow -->
+  <div class="card span-2">
+    <div class="card-header">
+      <span class="icon">🔥</span>
+      <h2>Pro Workflow — How to Get the Best Out of Claude Code</h2>
+    </div>
+    <div class="col2">
+      <div>
+        <div class="section-label">Starting a New Project</div>
+        <div class="config-cmd">1. cd project &amp;&amp; claude --2 /init → A Code</div>
+        <div class="config-cmd">2. Ctrl+Shift &amp;&amp; claude → A Code</div>
+        <hr class="divider">
+        <div class="section-label">The Plan — Explore Pattern for Current Attention ⚡</div>
+        <div style="font-size:10px;color:#aaa;margin-bottom:4px;">Review Claude's plan <kbd>Shift+Tab</kbd> to <span style="color:#f90">Normal/Auto-Accept</span></div>
+        <div style="font-size:10px;color:#aaa;margin-bottom:4px;">Quick question: if something feels stuck, run this first</div>
+        <div style="font-size:10px;color:#aaa;margin-bottom:4px;"><strong>Execute</strong></div>
+        <hr class="divider">
+        <div class="section-label">Doing More</div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Paste errors</span><span class="hook-desc">Claude parses the full error message. Claude parses stack traces instantly</span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Paste Screenshots</span><span class="hook-desc">Ctrl+V a screenshot of the bug. Claude sees it</span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Pipe Logs</span><span class="hook-desc"><code>cat error.log | claude -m "what is wrong"</code></span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">/doctor</span><span class="hook-desc">When something's broken. Run this first.</span></div>
+      </div>
+      <div>
+        <div class="section-label">Coding More</div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Use /compact</span><span class="hook-desc">Between unrelated tasks. Don't carry irrelevant context</span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Use @</span><span class="hook-desc">For routine tasks. Give focus for complex reasoning</span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Use # ref</span><span class="hook-desc">Instead of pasting code — smarter context management</span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Multiple Dirs</span><span class="hook-desc"><code>--add-dir ../Feature --root</code> — isolated git worktree + multiple dirs</span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Background</span><span class="hook-desc">Ctrl+Z sends a task to background so you can start another</span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Agent Tasks</span><span class="hook-desc">Use <code>--agent</code> for long-running background tasks (experimental)</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Row 5: 2 columns -->
+<div class="grid-2" style="margin-top:12px;">
+
+  <!-- Create Custom Commands -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">🛠️</span>
+      <h2>Create Custom Commands</h2>
+    </div>
+    <div class="col2">
+      <div>
+        <div class="section-label">Steps</div>
+        <div class="hook-row">
+          <span style="background:#2a2050;color:#aaf;padding:2px 8px;border-radius:3px;font-size:10px;min-width:80px;font-weight:600;">1. Create file</span>
+          <span class="hook-desc"><code>.claude/commands/review.md</code></span>
+        </div>
+        <div class="hook-row">
+          <span style="background:#2a2050;color:#aaf;padding:2px 8px;border-radius:3px;font-size:10px;min-width:80px;font-weight:600;">2. Write prompt</span>
+          <span class="hook-desc">The markdown content IS the prompt Claude sees</span>
+        </div>
+        <div class="hook-row">
+          <span style="background:#2a2050;color:#aaf;padding:2px 8px;border-radius:3px;font-size:10px;min-width:80px;font-weight:600;">3. Use It</span>
+          <span class="hook-desc">Type <code>/project/review</code> to invoke Claude</span>
+        </div>
+
+        <div class="section-label" style="margin-top:8px">Optional Type Parameters</div>
+        <div class="hook-row"><span style="color:#f90;font-size:10px;min-width:110px;">argument alias</span><span class="hook-desc">Pre-prompt the argument input type</span></div>
+        <div class="hook-row"><span style="color:#f90;font-size:10px;min-width:110px;">allowed tools</span><span class="hook-desc">Restrict what tools this command can use</span></div>
+        <div class="hook-row"><span style="color:#f90;font-size:10px;min-width:110px;">model</span><span class="hook-desc">Force a specific model for this command</span></div>
+      </div>
+      <div>
+        <div class="section-label">$ARGUMENTS Usage</div>
+        <div style="font-size:10px;color:#aaa;margin-bottom:6px;">Use <code>$ARGUMENTS</code> in your markdown — it gets replaced with whatever you type after the command.</div>
+        <div class="tip">💡 <strong>Example:</strong> <code>/project/review $ARGUMENTS</code> → <code>$ARGUMENTS</code> = "main.clj --verbose"</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Reference -->
+  <div class="card">
+    <div class="card-header">
+      <span class="icon">📋</span>
+      <h2>Quick Reference — Most Used Combos</h2>
+    </div>
+    <div class="col2">
+      <div>
+        <div class="section-label">Daily Tasks</div>
+        <div class="file-item"><span class="file-name" style="min-width:120px">Start project</span><span class="file-desc"><code>cd project &amp;&amp; claude</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:120px">Continue where I left off</span><span class="file-desc"><code>claude --c</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:120px">Quick question</span><span class="file-desc"><code>claude "How do I..."</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:120px">Review vs changes</span><span class="file-desc"><code>git diff | claude --review</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:120px">Explain error</span><span class="file-desc">paste error → "explain this"</span></div>
+        <div class="file-item"><span class="file-name" style="min-width:120px">Check work</span><span class="file-desc">Type /doctor anytime</span></div>
+        <div class="file-item"><span class="file-name" style="min-width:120px">Web scrape</span><span class="file-desc"><code>claude --chrome "Go to docs"</code></span></div>
+      </div>
+      <div>
+        <div class="section-label">Coding Mode</div>
+        <div class="file-item"><span class="file-name" style="min-width:130px">Parallel sessions</span><span class="file-desc"><code>claude -p --Feature || claude -p --Feature</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:130px">Custom reviewer agent</span><span class="file-desc">Create <code>/.claude/agents/reviewer.md</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:130px">Auto-format tools</span><span class="file-desc">PostToolUse hook → run prettier</span></div>
+        <div class="file-item"><span class="file-name" style="min-width:130px">Git session</span><span class="file-desc"><code>claude --new-session "fix the bug"</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:130px">Debug session</span><span class="file-desc"><code>claude --verbose "why is X broken"</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:130px">Inspect limit</span><span class="file-desc"><code>claude --max-turns 5 "review only"</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:130px">Scripted automation</span><span class="file-desc"><code>claude --output-format json -p "..." | jq</code></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="text-align:center;margin-top:20px;font-size:10px;color:#444;">
+  Claude Code Cheat Sheet — Everything you need in one place
+</div>
+
+</body>
+</html>
