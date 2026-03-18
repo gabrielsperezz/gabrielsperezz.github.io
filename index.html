@@ -45,7 +45,7 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 12px auto 0;
   }
   .grid-2 {
     display: grid;
@@ -53,6 +53,7 @@
     gap: 12px;
     max-width: 1200px;
     margin: 12px auto 0;
+    align-items: start;
   }
   .grid-4 {
     display: grid;
@@ -66,6 +67,9 @@
     border: 1px solid #2a2a4a;
     border-radius: 8px;
     padding: 14px;
+    min-width: 0;
+    overflow: hidden;
+    overflow-wrap: break-word;
   }
   .card-header {
     display: flex;
@@ -95,6 +99,7 @@
     align-items: flex-start;
     margin-bottom: 3px;
     gap: 8px;
+    min-width: 0;
   }
   kbd {
     background: #252540;
@@ -113,9 +118,10 @@
     font-family: 'Courier New', monospace;
     font-size: 10px;
     color: #7af;
-    white-space: nowrap;
+    white-space: normal;
+    word-break: break-all;
   }
-  .desc { color: #999; font-size: 11px; flex: 1; text-align: right; }
+  .desc { color: #999; font-size: 11px; flex: 1; text-align: right; min-width: 0; overflow-wrap: break-word; }
   .desc-left { color: #999; font-size: 11px; flex: 1; }
   .key-col { min-width: 90px; }
   hr.divider {
@@ -131,6 +137,7 @@
     font-size: 10px;
     color: #8b8;
     margin-top: 8px;
+    overflow-wrap: break-word;
   }
   .tip-warn {
     background: #2a1a1a;
@@ -140,11 +147,13 @@
     font-size: 10px;
     color: #c88;
     margin-top: 8px;
+    overflow-wrap: break-word;
   }
   .mode-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 6px;
+    min-width: 0;
   }
   .mode-card {
     background: #252540;
@@ -178,6 +187,11 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
+    min-width: 0;
+  }
+  .col2 > div {
+    min-width: 0;
+    overflow: hidden;
   }
   .tag {
     display: inline-block;
@@ -195,15 +209,17 @@
     gap: 6px;
     margin-bottom: 3px;
     font-size: 11px;
+    min-width: 0;
   }
-  .file-name { color: #7af; font-family: monospace; min-width: 110px; font-size: 10px; }
-  .file-desc { color: #888; }
+  .file-name { color: #7af; font-family: monospace; min-width: 80px; font-size: 10px; flex-shrink: 0; }
+  .file-desc { color: #888; min-width: 0; overflow-wrap: break-word; }
   .priority-row {
     display: flex;
     align-items: center;
     gap: 6px;
     margin-bottom: 3px;
     font-size: 10px;
+    min-width: 0;
   }
   .priority-label {
     color: #aaa;
@@ -213,6 +229,8 @@
     color: #7af;
     font-family: monospace;
     font-size: 9px;
+    min-width: 0;
+    overflow-wrap: break-word;
   }
   .big5-section {
     margin-bottom: 10px;
@@ -229,6 +247,7 @@
     display: flex;
     gap: 8px;
     margin-bottom: 4px;
+    min-width: 0;
   }
   .big5-keyword {
     background: #2a2050;
@@ -240,20 +259,22 @@
     text-align: center;
     font-weight: 600;
   }
-  .big5-text { color: #999; font-size: 10px; line-height: 1.4; }
+  .big5-text { color: #999; font-size: 10px; line-height: 1.4; min-width: 0; overflow-wrap: break-word; }
   .hook-row {
     display: flex;
     gap: 8px;
     margin-bottom: 4px;
     align-items: flex-start;
+    min-width: 0;
   }
   .hook-name {
     color: #f90;
     font-family: monospace;
     font-size: 10px;
-    min-width: 130px;
+    min-width: 100px;
+    flex-shrink: 0;
   }
-  .hook-desc { color: #999; font-size: 10px; }
+  .hook-desc { color: #999; font-size: 10px; min-width: 0; overflow-wrap: break-word; }
   .config-row {
     font-size: 10px;
     margin-bottom: 3px;
@@ -634,19 +655,19 @@
         <div style="font-size:10px;color:#aaa;margin-bottom:4px;"><strong>Execute</strong></div>
         <hr class="divider">
         <div class="section-label">Doing More</div>
-        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Paste errors</span><span class="hook-desc">Claude parses the full error message. Claude parses stack traces instantly</span></div>
-        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Paste Screenshots</span><span class="hook-desc">Ctrl+V a screenshot of the bug. Claude sees it</span></div>
-        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Pipe Logs</span><span class="hook-desc"><code>cat error.log | claude -m "what is wrong"</code></span></div>
-        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">/doctor</span><span class="hook-desc">When something's broken. Run this first.</span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:80px">Paste errors</span><span class="hook-desc">Claude parses the full error message. Claude parses stack traces instantly</span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:80px">Paste Screenshots</span><span class="hook-desc">Ctrl+V a screenshot of the bug. Claude sees it</span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:80px">Pipe Logs</span><span class="hook-desc"><code>cat error.log | claude -m "what is wrong"</code></span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:80px">/doctor</span><span class="hook-desc">When something's broken. Run this first.</span></div>
       </div>
       <div>
         <div class="section-label">Coding More</div>
-        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Use /compact</span><span class="hook-desc">Between unrelated tasks. Don't carry irrelevant context</span></div>
-        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Use @</span><span class="hook-desc">For routine tasks. Give focus for complex reasoning</span></div>
-        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Use # ref</span><span class="hook-desc">Instead of pasting code — smarter context management</span></div>
-        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Multiple Dirs</span><span class="hook-desc"><code>--add-dir ../Feature --root</code> — isolated git worktree + multiple dirs</span></div>
-        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Background</span><span class="hook-desc">Ctrl+Z sends a task to background so you can start another</span></div>
-        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:110px">Agent Tasks</span><span class="hook-desc">Use <code>--agent</code> for long-running background tasks (experimental)</span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:80px">Use /compact</span><span class="hook-desc">Between unrelated tasks. Don't carry irrelevant context</span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:80px">Use @</span><span class="hook-desc">For routine tasks. Give focus for complex reasoning</span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:80px">Use # ref</span><span class="hook-desc">Instead of pasting code — smarter context management</span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:80px">Multiple Dirs</span><span class="hook-desc"><code>--add-dir ../Feature --root</code> — isolated git worktree + multiple dirs</span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:80px">Background</span><span class="hook-desc">Ctrl+Z sends a task to background so you can start another</span></div>
+        <div class="hook-row"><span class="hook-name" style="color:#7af;min-width:80px">Agent Tasks</span><span class="hook-desc">Use <code>--agent</code> for long-running background tasks (experimental)</span></div>
       </div>
     </div>
   </div>
@@ -678,9 +699,9 @@
         </div>
 
         <div class="section-label" style="margin-top:8px">Optional Type Parameters</div>
-        <div class="hook-row"><span style="color:#f90;font-size:10px;min-width:110px;">argument alias</span><span class="hook-desc">Pre-prompt the argument input type</span></div>
-        <div class="hook-row"><span style="color:#f90;font-size:10px;min-width:110px;">allowed tools</span><span class="hook-desc">Restrict what tools this command can use</span></div>
-        <div class="hook-row"><span style="color:#f90;font-size:10px;min-width:110px;">model</span><span class="hook-desc">Force a specific model for this command</span></div>
+        <div class="hook-row"><span style="color:#f90;font-size:10px;min-width:80px;">argument alias</span><span class="hook-desc">Pre-prompt the argument input type</span></div>
+        <div class="hook-row"><span style="color:#f90;font-size:10px;min-width:80px;">allowed tools</span><span class="hook-desc">Restrict what tools this command can use</span></div>
+        <div class="hook-row"><span style="color:#f90;font-size:10px;min-width:80px;">model</span><span class="hook-desc">Force a specific model for this command</span></div>
       </div>
       <div>
         <div class="section-label">$ARGUMENTS Usage</div>
@@ -699,23 +720,23 @@
     <div class="col2">
       <div>
         <div class="section-label">Daily Tasks</div>
-        <div class="file-item"><span class="file-name" style="min-width:120px">Start project</span><span class="file-desc"><code>cd project &amp;&amp; claude</code></span></div>
-        <div class="file-item"><span class="file-name" style="min-width:120px">Continue where I left off</span><span class="file-desc"><code>claude --c</code></span></div>
-        <div class="file-item"><span class="file-name" style="min-width:120px">Quick question</span><span class="file-desc"><code>claude "How do I..."</code></span></div>
-        <div class="file-item"><span class="file-name" style="min-width:120px">Review vs changes</span><span class="file-desc"><code>git diff | claude --review</code></span></div>
-        <div class="file-item"><span class="file-name" style="min-width:120px">Explain error</span><span class="file-desc">paste error → "explain this"</span></div>
-        <div class="file-item"><span class="file-name" style="min-width:120px">Check work</span><span class="file-desc">Type /doctor anytime</span></div>
-        <div class="file-item"><span class="file-name" style="min-width:120px">Web scrape</span><span class="file-desc"><code>claude --chrome "Go to docs"</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:90px">Start project</span><span class="file-desc"><code>cd project &amp;&amp; claude</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:90px">Continue where I left off</span><span class="file-desc"><code>claude --c</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:90px">Quick question</span><span class="file-desc"><code>claude "How do I..."</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:90px">Review vs changes</span><span class="file-desc"><code>git diff | claude --review</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:90px">Explain error</span><span class="file-desc">paste error → "explain this"</span></div>
+        <div class="file-item"><span class="file-name" style="min-width:90px">Check work</span><span class="file-desc">Type /doctor anytime</span></div>
+        <div class="file-item"><span class="file-name" style="min-width:90px">Web scrape</span><span class="file-desc"><code>claude --chrome "Go to docs"</code></span></div>
       </div>
       <div>
         <div class="section-label">Coding Mode</div>
-        <div class="file-item"><span class="file-name" style="min-width:130px">Parallel sessions</span><span class="file-desc"><code>claude -p --Feature || claude -p --Feature</code></span></div>
-        <div class="file-item"><span class="file-name" style="min-width:130px">Custom reviewer agent</span><span class="file-desc">Create <code>/.claude/agents/reviewer.md</code></span></div>
-        <div class="file-item"><span class="file-name" style="min-width:130px">Auto-format tools</span><span class="file-desc">PostToolUse hook → run prettier</span></div>
-        <div class="file-item"><span class="file-name" style="min-width:130px">Git session</span><span class="file-desc"><code>claude --new-session "fix the bug"</code></span></div>
-        <div class="file-item"><span class="file-name" style="min-width:130px">Debug session</span><span class="file-desc"><code>claude --verbose "why is X broken"</code></span></div>
-        <div class="file-item"><span class="file-name" style="min-width:130px">Inspect limit</span><span class="file-desc"><code>claude --max-turns 5 "review only"</code></span></div>
-        <div class="file-item"><span class="file-name" style="min-width:130px">Scripted automation</span><span class="file-desc"><code>claude --output-format json -p "..." | jq</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:90px">Parallel sessions</span><span class="file-desc"><code>claude -p --Feature || claude -p --Feature</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:90px">Custom reviewer agent</span><span class="file-desc">Create <code>/.claude/agents/reviewer.md</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:90px">Auto-format tools</span><span class="file-desc">PostToolUse hook → run prettier</span></div>
+        <div class="file-item"><span class="file-name" style="min-width:90px">Git session</span><span class="file-desc"><code>claude --new-session "fix the bug"</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:90px">Debug session</span><span class="file-desc"><code>claude --verbose "why is X broken"</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:90px">Inspect limit</span><span class="file-desc"><code>claude --max-turns 5 "review only"</code></span></div>
+        <div class="file-item"><span class="file-name" style="min-width:90px">Scripted automation</span><span class="file-desc"><code>claude --output-format json -p "..." | jq</code></span></div>
       </div>
     </div>
   </div>
